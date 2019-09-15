@@ -1,0 +1,144 @@
+Index: linux-4.9.111/drivers/usb/serial/option.c
+===================================================================
+--- linux-4.9.111.orig/drivers/usb/serial/option.c
++++ linux-4.9.111/drivers/usb/serial/option.c
+@@ -564,6 +564,8 @@ static void option_instat_callback(struc
+ 
+ 
+ static const struct usb_device_id option_ids[] = {
++	{ USB_DEVICE(ZTE_VENDOR_ID, 0x1476) }, //gaoxinxing
++	{ USB_DEVICE(0x1508, 0x1001) },  //guanghetong
+ 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_COLT) },
+ 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA) },
+ 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_LIGHT) },
+@@ -2009,6 +2011,34 @@ static int option_probe(struct usb_seria
+ 	    iface_desc->bInterfaceClass != USB_CLASS_CDC_DATA)
+ 		return -ENODEV;
+ 
++	if (serial->dev->descriptor.idVendor == 0x19d2 &&
++	serial->dev->descriptor.idProduct == 0x1476 &&
++	serial->interface->cur_altsetting->desc. bInterfaceNumber == 3)
++	{
++		return -ENODEV;
++	}
++
++	if (serial->dev->descriptor.idVendor == 0x19d2 &&
++	serial->dev->descriptor.idProduct == 0x1476 &&
++	serial->interface->cur_altsetting->desc. bInterfaceNumber == 4)
++	{
++		return -ENODEV;
++	}
++	
++	if (serial->dev->descriptor.idVendor == 0x19d2 &&
++	serial->dev->descriptor.idProduct == 0x1509 &&
++	serial->interface->cur_altsetting->desc. bInterfaceNumber == 4)
++	{
++		return -ENODEV;
++	}
++
++	if (serial->dev->descriptor.idVendor == 0x19d2 &&
++	serial->dev->descriptor.idProduct == 0x1509 &&
++	serial->interface->cur_altsetting->desc. bInterfaceNumber == 5)
++	{
++		return -ENODEV;
++	}
++
+ 	/* Store the device flags so we can use them during attach. */
+ 	usb_set_serial_data(serial, (void *)device_flags);
+ 
+Index: linux-4.9.111/drivers/net/wireless/ath/regd.c
+===================================================================
+--- linux-4.9.111.orig/drivers/net/wireless/ath/regd.c
++++ linux-4.9.111/drivers/net/wireless/ath/regd.c
+@@ -15,6 +15,7 @@
+  */
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++#define ATH_USER_REGD	1
+ 
+ #include <linux/kernel.h>
+ #include <linux/export.h>
+@@ -345,6 +346,9 @@ ath_reg_apply_beaconing_flags(struct wip
+ 	struct ieee80211_channel *ch;
+ 	unsigned int i;
+ 
++#ifdef ATH_USER_REGD
++	return ;
++#endif
+ 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+ 		if (!wiphy->bands[band])
+ 			continue;
+@@ -377,7 +381,9 @@ ath_reg_apply_ir_flags(struct wiphy *wip
+ 		       enum nl80211_reg_initiator initiator)
+ {
+ 	struct ieee80211_supported_band *sband;
+-
++#ifdef ATH_USER_REGD
++        return;
++#endif
+ 	sband = wiphy->bands[NL80211_BAND_2GHZ];
+ 	if (!sband)
+ 		return;
+@@ -406,7 +412,9 @@ static void ath_reg_apply_radar_flags(st
+ 	struct ieee80211_supported_band *sband;
+ 	struct ieee80211_channel *ch;
+ 	unsigned int i;
+-
++#ifdef ATH_USER_REGD
++        return;
++#endif
+ 	if (!wiphy->bands[NL80211_BAND_5GHZ])
+ 		return;
+ 
+@@ -641,6 +649,10 @@ ath_regd_init_wiphy(struct ath_regulator
+ 	wiphy->regulatory_flags |= REGULATORY_STRICT_REG |
+ 				   REGULATORY_CUSTOM_REG;
+ 
++#ifdef ATH_USER_REGD
++        return;
++#endif
++
+ 	if (ath_is_world_regd(reg)) {
+ 		/*
+ 		 * Anything applied here (prior to wiphy registration) gets
+Index: linux-4.9.111/net/wireless/db.txt
+===================================================================
+--- linux-4.9.111.orig/net/wireless/db.txt
++++ linux-4.9.111/net/wireless/db.txt
+@@ -15,3 +15,36 @@
+ #
+ #   git://git.kernel.org/pub/scm/linux/kernel/git/linville/wireless-regdb.git
+ #
++# This is the world regulatory domain
++country 00: DFS-FCC
++	(2402 - 2482 @ 40), (20)
++	(5170 - 5250 @ 80), (23), AUTO-BW
++	(5250 - 5330 @ 80), (23), DFS, AUTO-BW
++	(5735 - 5835 @ 80), (30)
++	# 60 gHz band channels 1,4: 28dBm, channels 2,3: 44dBm
++	# ref: http://www.miit.gov.cn/n11293472/n11505629/n11506593/n11960250/n11960606/n11960700/n12330791.files/n12330790.pdf
++	(57240 - 59400 @ 2160), (28)
++	(59400 - 63720 @ 2160), (44)
++	(63720 - 65880 @ 2160), (28)
++
++country CN: DFS-FCC
++	(2402 - 2482 @ 40), (20)
++	(5170 - 5250 @ 80), (23), AUTO-BW
++	(5250 - 5330 @ 80), (23), DFS, AUTO-BW
++	(5735 - 5835 @ 80), (30)
++	# 60 gHz band channels 1,4: 28dBm, channels 2,3: 44dBm
++	# ref: http://www.miit.gov.cn/n11293472/n11505629/n11506593/n11960250/n11960606/n11960700/n12330791.files/n12330790.pdf
++	(57240 - 59400 @ 2160), (28)
++	(59400 - 63720 @ 2160), (44)
++	(63720 - 65880 @ 2160), (28)
++
++country US: DFS-FCC
++	(2402 - 2482 @ 40), (20)
++	(5170 - 5250 @ 80), (23), AUTO-BW
++	(5250 - 5330 @ 80), (23), DFS, AUTO-BW
++	(5735 - 5835 @ 80), (30)
++	# 60 gHz band channels 1,4: 28dBm, channels 2,3: 44dBm
++	# ref: http://www.miit.gov.cn/n11293472/n11505629/n11506593/n11960250/n11960606/n11960700/n12330791.files/n12330790.pdf
++	(57240 - 59400 @ 2160), (28)
++	(59400 - 63720 @ 2160), (44)
++	(63720 - 65880 @ 2160), (28)
