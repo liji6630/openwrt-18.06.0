@@ -1,0 +1,66 @@
+/*
+ * Copyright 2017 NXP
+ *
+ */
+
+
+/dts-v1/;
+
+/ {
+	description = "arm64 kernel, ramdisk and FDT blob";
+	#address-cells = <1>;
+
+	images {
+		kernel {
+			description = "ARM64 Kernel";
+			data = /incbin/("./Image.gz");
+			type = "kernel";
+			arch = "arm64";
+			os = "linux";
+			compression = "gzip";
+			load = <0x80080000>;
+			entry = <0x80080000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		initrd {
+			description = "initrd for arm64";
+			data = /incbin/("./root.ext4.gz");
+			type = "ramdisk";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x00000000>;
+			entry = <0x00000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};	
+
+		hcen104-dtb {
+			description = "hcen104-dtb";
+			data = /incbin/("./hc-ls1043a-hcen104-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+	};
+
+	configurations {		
+
+		hcen104 {
+			description = "config for hcen104";
+			kernel = "kernel";
+			ramdisk = "initrd";
+			fdt = "hcen104-dtb";
+		};
+	};
+};
