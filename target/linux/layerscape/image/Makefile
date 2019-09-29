@@ -51,8 +51,6 @@ define Device/Default
   DEVICE_DTS :=
   IMAGES = firmware.bin
 
-  HCEN104_DTS = ../../../arm64/boot/dts/freescale/hc-ls1043a-hcen104-sdk
-
 ifeq ($(SUBTARGET),armv8_64b)
   KERNEL := kernel-bin | gzip | uImage gzip 
   KERNEL_LOADADDR = 0x80080000

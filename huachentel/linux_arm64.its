@@ -51,6 +51,19 @@
 				algo = "crc32";
 			};
 		};
+		
+		hcen1002-dtb {
+			description = "hcen104-dtb";
+			data = /incbin/("./hc-ls1043a-hcen1002-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
 
 	};
 
@@ -62,5 +75,12 @@
 			ramdisk = "initrd";
 			fdt = "hcen104-dtb";
 		};
+		hcen1002 {
+			description = "config for hcen104";
+			kernel = "kernel";
+			ramdisk = "initrd";
+			fdt = "hcen1002-dtb";
+		};
+		
 	};
 };

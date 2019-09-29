@@ -27,6 +27,14 @@ set_interface_name(){
 	    ip link set eth2 name iface3
 	    ip link set eth1 name iface4
 	fi
+	flag="$(cat /proc/cmdline | grep hcen1002)"
+	if [ "$flag" ]; then
+	    ip link set eth1 name iface0
+	    ip link set eth2 name iface1
+	    ip link set eth4 name iface2
+	    ip link set eth0 name iface3
+	    ip link set eth3 name iface4
+	fi
 }
 
 #add by liji to set wifi reg to CN
