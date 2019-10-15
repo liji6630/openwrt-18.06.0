@@ -25,20 +25,6 @@
 			};
 		};
 
-		initrd {
-			description = "initrd for arm64";
-			data = /incbin/("./root.ext4.gz");
-			type = "ramdisk";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x00000000>;
-			entry = <0x00000000>;
-			hash@1 {
-				algo = "crc32";
-			};
-		};	
-
 		hcen104-dtb {
 			description = "hcen104-dtb";
 			data = /incbin/("./hc-ls1043a-hcen104-sdk.dtb");
@@ -72,13 +58,11 @@
 		hcen104 {
 			description = "config for hcen104";
 			kernel = "kernel";
-			ramdisk = "initrd";
 			fdt = "hcen104-dtb";
 		};
 		hcen1002 {
 			description = "config for hcen104";
 			kernel = "kernel";
-			ramdisk = "initrd";
 			fdt = "hcen1002-dtb";
 		};
 		

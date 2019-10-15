@@ -137,6 +137,7 @@ define BuildKernel
 
   $(LINUX_DIR)/.image: $(STAMP_CONFIGURED) $(if $(CONFIG_STRIP_KERNEL_EXPORTS),$(KERNEL_BUILD_DIR)/symtab.h) FORCE
 	$(Kernel/CompileImage)
+	cd $(TOPDIR)/huachentel/ && /bin/bash build_img.sh && cp openwrt-ls1023a-kernel.img $(TOPDIR)/build_dir/target-aarch64_generic_glibc/root-layerscape/
 	$(Kernel/CollectDebug)
 	touch $$@
 	

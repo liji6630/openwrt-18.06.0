@@ -1,0 +1,20 @@
+#!/bin/sh
+
+mkdir -p /run/media/mmcblk0p1
+mkdir -p /run/media/mmcblk0p2
+mkdir -p /run/media/mmcblk0p3
+
+mkdir -p /tmp/root /tmp/work
+
+mount /dev/mmcblk0p1 /run/media/mmcblk0p1
+mount /dev/mmcblk0p2 /run/media/mmcblk0p2
+mount /dev/mmcblk0p3 /run/media/mmcblk0p3
+
+#我没有别的办法切换目录，只要复制用户数据到根目录
+#cp -rf /run/media/mmcblk0p1/* /tmp/root
+#mount -n -t overlay overlayfs:/overlay -o rw,noatime,lowerdir=/,upperdir=/tmp/root,workdir=/tmp/work /overlay
+#switch_root /overlay /init 
+
+cp -rf /run/media/mmcblk0p1/* /
+
+exit 0

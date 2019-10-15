@@ -27,3 +27,5 @@ TAGS*~
 git-src
 .project
 .cproject
+
+/huachentel/openwrt-ls1023a-kernel.img

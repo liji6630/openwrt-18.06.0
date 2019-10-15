@@ -69,13 +69,7 @@ define Device/ls1043ardb
   DEVICE_PACKAGES +=	rcw-layerscape-ls1043ardb uboot-layerscape-$(SUBTARGET)-ls1043ardb \
 			fman-layerscape-ls1043ardb layerscape-ppa-ls1043ardb
   DEVICE_DTS = ../../../arm64/boot/dts/freescale/fsl-ls1043a-rdb-sdk
-  IMAGE/firmware.bin =	append-ls-rcw $(1) | pad-to 1M | \
-			append-ls-uboot $(1) | pad-to 4M | \
-			append-ls-ppa $(1) | pad-to 9M | \
-			append-ls-fman $(1) | pad-to 15M | \
-			append-ls-dtb $$(DEVICE_DTS) | pad-to 16M | \
-			append-kernel | pad-to 32M | \
-			append-rootfs | pad-rootfs | check-size 67108865
+  IMAGE/firmware.bin =	append-rootfs | pad-rootfs | check-size 67108865
 endef
 TARGET_DEVICES += ls1043ardb
 
