@@ -32,8 +32,8 @@ function generate_img()
 		cd "$WORK_PATH"/images
 		gzip -9 Image
 		gzip -9 root.ext4
-		mkimage -f linux_arm64.its openwrt-ls1023a-kernel.img
-		mv openwrt-ls1023a-kernel.img "$WORK_PATH"
+		mkimage -f linux_arm64.its lsdk_linux_arm64_tiny.itb
+		mv lsdk_linux_arm64_tiny.itb "$WORK_PATH"
 	fi
 	
 	rm -rf "$WORK_PATH"/images

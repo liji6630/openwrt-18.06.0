@@ -1,0 +1,38 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+# OVERLAY="$( grep ' /overlay ' /proc/mounts )"
+
+case "$ACTION" in
+pressed)
+	[ -z "$OVERLAY" ] && return 0
+
+	return 5
+;;
+timeout)
+	. /etc/diag.sh
+	set_state failsafe
+;;
+released)
+	if [ "$SEEN" -lt 1 ]
+	then
+		echo "REBOOT" > /dev/console
+		sync
+		reboot
+#	elif [ "$SEEN" -ge 5 -a -n "$OVERLAY" ]
+	elif [ "$SEEN" -ge 5 ]
+	then
+		echo "FACTORY RESET" > /dev/console
+#		jffs2reset -y && reboot &
+		mkdir -p /tmp/p1
+		mount /dev/mmcblk0p1 /tmp/p1/
+		rm -rf /tmp/p1/update/*
+		echo "prepare for factory reset,device will reboot for few times..."
+		cp /tmp/p1/recovery/*.tar.gz /tmp/p1/update/ && touch /tmp/p1/need_update
+		sync && reboot &
+	fi
+;;
+esac
+
+return 0
