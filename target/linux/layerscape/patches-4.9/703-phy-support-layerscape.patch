@@ -18,7 +18,6 @@ Signed-off-by: Yangbo Lu <yangbo.lu@nxp.com>
  drivers/net/phy/aquantia.c      |   28 +
  drivers/net/phy/cortina.c       |  118 ++++
  drivers/net/phy/fsl_backplane.c | 1358 +++++++++++++++++++++++++++++++++++++++
- drivers/net/phy/marvell.c       |    2 +-
  drivers/net/phy/phy.c           |   23 +-
  drivers/net/phy/phy_device.c    |    6 +-
  drivers/net/phy/swphy.c         |    1 +
@@ -1605,17 +1604,6 @@ Signed-off-by: Yangbo Lu <yangbo.lu@nxp.com>
 +MODULE_DESCRIPTION("Freescale Backplane driver");
 +MODULE_AUTHOR("Shaohui Xie <Shaohui.Xie@freescale.com>");
 +MODULE_LICENSE("GPL v2");
---- a/drivers/net/phy/marvell.c
-+++ b/drivers/net/phy/marvell.c
-@@ -1610,7 +1610,7 @@ static struct phy_driver marvell_drivers
- 		.flags = PHY_HAS_INTERRUPT,
- 		.probe = marvell_probe,
- 		.config_init = &m88e1145_config_init,
--		.config_aneg = &marvell_config_aneg,
-+		.config_aneg = &m88e1101_config_aneg,
- 		.read_status = &genphy_read_status,
- 		.ack_interrupt = &marvell_ack_interrupt,
- 		.config_intr = &marvell_config_intr,
 --- a/drivers/net/phy/phy.c
 +++ b/drivers/net/phy/phy.c
 @@ -591,7 +591,7 @@ int phy_mii_ioctl(struct phy_device *phy

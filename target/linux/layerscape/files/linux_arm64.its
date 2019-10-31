@@ -1,0 +1,239 @@
+/*
+ * Copyright 2017 NXP
+ *
+ */
+
+
+/dts-v1/;
+
+/ {
+	description = "arm64 kernel, ramdisk and FDT blob";
+	#address-cells = <1>;
+
+	images {
+		kernel {
+			description = "ARM64 Kernel";
+			data = /incbin/("arch/arm64/boot/Image.gz");
+			type = "kernel";
+			arch = "arm64";
+			os = "linux";
+			compression = "gzip";
+			load = <0x80080000>;
+			entry = <0x80080000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		hcen101-dtb {
+			description = "hcen101-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1012a-hcen101.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		hcen104-dtb {
+			description = "hcen1004a-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen104-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		hcen104-dpdk {
+			description = "hcen1004a-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen104-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		hcen1002a-dtb {
+			description = "hcen10042a-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen1002a-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		hcen1002a-dpdk {
+			description = "hcen1002a-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen1002a-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		hcen1002b-dtb {
+			description = "hcen1002b-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen1002b-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		hcen1002b-dpdk {
+			description = "hcen1002b-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen1002b-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+/*
+		hcen1004a-dtb {
+			description = "hcen1004a-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004a-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		hcen1004a-dpdk {
+			description = "hcen1004a-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004a-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+
+		hcen1004-dtb {
+			description = "hcen1004a-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		hcen1004-dpdk {
+			description = "hcen1004a-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+*/	
+	};
+
+	configurations {
+		
+		default = "hcen101";
+
+		hcen101 {
+			description = "config for hcen104";
+			kernel = "kernel";
+			fdt = "hcen101-dtb";
+		};	
+
+		hcen104 {
+			description = "config for hcen104";
+			kernel = "kernel";
+			fdt = "hcen104-dtb";
+		};	
+
+		hcen104-dpdk {
+			description = "config for hcen104";
+			kernel = "kernel";
+			fdt = "hcen104-dpdk";
+		};
+
+		hcen1002 {
+			description = "config for hcen1002a";
+			kernel = "kernel";
+			fdt = "hcen1002a-dtb";
+		};	
+
+		hcen1002-dpdk {
+			description = "config for hcen1002a";
+			kernel = "kernel";
+			fdt = "hcen1002a-dpdk";
+		};		
+
+		hcen1002b {
+			description = "config for hcen1002b";
+			kernel = "kernel";
+			fdt = "hcen1002b-dtb";
+		};	
+
+		hcen1002b-dpdk {
+			description = "config for hcen1002b";
+			kernel = "kernel";
+			fdt = "hcen1002b-dpdk";
+		};
+/*
+		hcen1004a {
+			description = "config for hcen1004a";
+			kernel = "kernel";
+			fdt = "hcen1004a-dtb";
+		};	
+
+		hcen1004a-dpdk {
+			description = "config for hcen1004a";
+			kernel = "kernel";
+			fdt = "hcen1004a-dpdk";
+		};
+
+		hcen1004 {
+			description = "config for hcen1004";
+			kernel = "kernel";
+			fdt = "hcen1004-dtb";
+		};	
+
+		hcen1004-dpdk {
+			description = "config for hcen1004";
+			kernel = "kernel";
+			fdt = "hcen1004-dpdk";
+		};	
+*/		
+	};
+};
