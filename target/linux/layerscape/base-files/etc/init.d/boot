@@ -77,4 +77,6 @@ boot() {
 	#hctel-liji extra set
 	set_interface_name
 	set_iw_reg_to_cn
+	#hctel-liji: I found reset usually no effact,so change it mod
+	chmod 777 /etc/rc.button/reset
 }
