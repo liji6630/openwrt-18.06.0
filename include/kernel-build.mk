@@ -137,7 +137,7 @@ define BuildKernel
 
   $(LINUX_DIR)/.image: $(STAMP_CONFIGURED) $(if $(CONFIG_STRIP_KERNEL_EXPORTS),$(KERNEL_BUILD_DIR)/symtab.h) FORCE
 	$(Kernel/CompileImage)
-	cd $(LINUX_DIR)/arch/arm64/boot/ && rm Image.gz && gzip Image && cd $(LINUX_DIR) && /bin/bash mkitb.sh && mv lsdk_linux_arm64_tiny.itb $(TOPDIR)/build_dir/target-aarch64_generic_glibc/root-layerscape/
+	cd $(LINUX_DIR)/arch/arm64/boot/ && gzip Image && cd $(LINUX_DIR) && /bin/bash mkitb.sh && mv lsdk_linux_arm64_tiny.itb $(TOPDIR)/build_dir/target-aarch64_generic_glibc/root-layerscape/
 	$(Kernel/CollectDebug)
 	touch $$@
 	
