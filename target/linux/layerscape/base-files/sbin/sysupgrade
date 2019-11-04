@@ -1,0 +1,21 @@
+#!/bin/sh
+
+SYSTEM_ROOTFS="$1"
+
+function sysupgrade()
+{
+    if [ -f "$SYSTEM_ROOTFS" ]; then
+    	mkdir -p /tmp/p1 
+    	mount /dev/mmcblk0p1 /tmp/p1/
+    	rm -rf /tmp/p1/update/*
+    	echo "prepare for sysupgrade ,device will reboot for few times..."
+    	cp "$SYSTEM_ROOTFS"  /tmp/p1/update/ && touch /tmp/p1/need_update
+    	sync && reboot &
+    else
+	echo "$1" not found or is empty...
+    fi
+    
+}
+
+sysupgrade
+
