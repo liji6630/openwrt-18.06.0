@@ -14,7 +14,7 @@ config interface 'lan'
 	option ip6assign '60'
 
 config interface 'wan'
-	option ifname 'iface0'
+	option ifname 'wan'
 	option proto 'dhcp'
 
 config interface 'lte'

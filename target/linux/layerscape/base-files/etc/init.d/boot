@@ -21,7 +21,7 @@ uci_apply_defaults() {
 set_interface_name(){
 	flag="$(cat /proc/cmdline | grep hcen104)"
 	if [ "$flag" ]; then
-	    ip link set eth3 name iface0
+	    ip link set eth3 name wan
 	    ip link set eth0 name iface1
 	    ip link set eth4 name iface2
 	    ip link set eth2 name iface3
@@ -29,7 +29,7 @@ set_interface_name(){
 	fi
 	flag="$(cat /proc/cmdline | grep hcen1002)"
 	if [ "$flag" ]; then
-	    ip link set eth1 name iface0
+	    ip link set eth1 name wan
 	    ip link set eth2 name iface1
 	    ip link set eth4 name iface2
 	    ip link set eth0 name iface3
@@ -79,4 +79,6 @@ boot() {
 	set_iw_reg_to_cn
 	#hctel-liji: I found reset usually no effact,so change it mod
 	chmod 777 /etc/rc.button/reset
+	#boot lte
+	lte up
 }
