@@ -17,4 +17,8 @@ config interface 'wan'
 	option ifname 'iface0'
 	option proto 'dhcp'
 
-
+config interface 'lte'
+	option ifname 'usb0'
+	option proto 'dhcp'
+	option metric '40'
+	option ip4table 71
