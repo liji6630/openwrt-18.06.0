@@ -1,0 +1,13 @@
+diff --git a/drivers/net/ethernet/freescale/sdk_dpaa/dpaa_eth.c b/drivers/net/ethernet/freescale/sdk_dpaa/dpaa_eth.c
+index b664905976d0..183709e1e7e8 100644
+--- a/drivers/net/ethernet/freescale/sdk_dpaa/dpaa_eth.c
++++ b/drivers/net/ethernet/freescale/sdk_dpaa/dpaa_eth.c
+@@ -1178,6 +1178,8 @@ static int __init __cold dpa_load(void)
+ #ifndef CONFIG_PPC
+ 	/* Detect if the current SoC requires the 4K alignment workaround */
+ 	dpaa_errata_a010022 = soc_has_errata_a010022();
++	dpaa_errata_a010022 = false;
++	pr_err("Turned off dpaa_errata_a010022: %d\n", dpaa_errata_a010022);
+ #endif
+ 
+ #ifdef CONFIG_FSL_DPAA_DBG_LOOP

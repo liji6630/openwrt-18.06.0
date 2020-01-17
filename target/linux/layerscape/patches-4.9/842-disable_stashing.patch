@@ -1,0 +1,44 @@
+diff --git a/drivers/crypto/caam/qi.c b/drivers/crypto/caam/qi.c
+index ca48a9df74d5..ee0f1bc4db5f 100644
+--- a/drivers/crypto/caam/qi.c
++++ b/drivers/crypto/caam/qi.c
+@@ -628,16 +628,29 @@ static int alloc_rsp_fq_cpu(struct device *qidev, unsigned int cpu)
+ 	opts.we_mask = QM_INITFQ_WE_FQCTRL | QM_INITFQ_WE_DESTWQ |
+ 		QM_INITFQ_WE_CONTEXTB | QM_INITFQ_WE_CONTEXTA |
+ 		QM_INITFQ_WE_CGID;
++#if 0
+ 	opts.fqd.fq_ctrl = QM_FQCTRL_CTXASTASHING | QM_FQCTRL_CPCSTASH |
+ 			   QM_FQCTRL_CGE;
++#else
++	opts.fqd.fq_ctrl = QM_FQCTRL_CTXASTASHING | QM_FQCTRL_CGE;
++#endif
+ 	opts.fqd.dest.channel = qman_affine_channel(cpu);
+ 	opts.fqd.dest.wq = 3;
+ 	opts.fqd.cgid = qipriv.cgr.cgrid;
++#if 0
+ 	opts.fqd.context_a.stashing.exclusive =	QM_STASHING_EXCL_CTX |
+ 						QM_STASHING_EXCL_DATA;
++#else
++	opts.fqd.context_a.stashing.exclusive = 0;
++#endif
++
++#if 0
+ 	opts.fqd.context_a.stashing.data_cl = 1;
+ 	opts.fqd.context_a.stashing.context_cl = 1;
+-
++#else
++	opts.fqd.context_a.stashing.data_cl = 0;
++	opts.fqd.context_a.stashing.context_cl = 0;
++#endif
+ 	ret = qman_init_fq(fq, QMAN_INITFQ_FLAG_SCHED, &opts);
+ 	if (ret) {
+ 		dev_err(qidev, "Rsp FQ init failed\n");
+@@ -647,7 +660,7 @@ static int alloc_rsp_fq_cpu(struct device *qidev, unsigned int cpu)
+ 
+ 	per_cpu(pcpu_qipriv.rsp_fq, cpu) = fq;
+ 
+-	dev_dbg(qidev, "Allocated response FQ %u for CPU %u", fq->fqid, cpu);
++	dev_dbg(qidev, "Allocated response FQ %u for CPU %u with no stashing", fq->fqid, cpu);
+ 	return 0;
+ }
+ 
