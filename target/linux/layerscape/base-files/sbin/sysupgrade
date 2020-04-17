@@ -1,3 +1,4 @@
+  
 #!/bin/sh
 
 SYSTEM_ROOTFS="$1"
@@ -18,4 +19,3 @@ function sysupgrade()
 }
 
 sysupgrade
-

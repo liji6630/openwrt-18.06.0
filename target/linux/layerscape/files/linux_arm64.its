@@ -37,7 +37,7 @@
 				algo = "crc32";
 			};
 		};
-
+		
 		hcen104-dtb {
 			description = "hcen1004a-dtb";
 			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1043a-hcen104-sdk.dtb");
@@ -112,10 +112,10 @@
 				algo = "crc32";
 			};
 		};
-/*
-		hcen1004a-dtb {
-			description = "hcen1004a-dtb";
-			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004a-sdk.dtb");
+
+		ag10025ga-dtb {
+			description = "hcen10042a-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag10025ga-sdk.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			os = "linux";
@@ -125,9 +125,9 @@
 				algo = "crc32";
 			};
 		};
-		hcen1004a-dpdk {
-			description = "hcen1004a-dpdk";
-			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004a-usdpaa.dtb");
+		ag10025ga-dpdk {
+			description = "hcen1002a-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag10025ga-usdpaa.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			os = "linux";
@@ -138,9 +138,9 @@
 			};
 		};
 
-		hcen1004-dtb {
-			description = "hcen1004a-dtb";
-			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004-sdk.dtb");
+		ag10025gb-dtb {
+			description = "hcen1002b-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag10025gb-sdk.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			os = "linux";
@@ -150,9 +150,9 @@
 				algo = "crc32";
 			};
 		};
-		hcen1004-dpdk {
-			description = "hcen1004a-dpdk";
-			data = /incbin/("arch/arm64/boot/dts/huachentel/hc-ls1046a-hcen1004-usdpaa.dtb");
+		ag10025gb-dpdk {
+			description = "hcen1002b-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag10025gb-usdpaa.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			os = "linux";
@@ -162,7 +162,43 @@
 				algo = "crc32";
 			};
 		};
-*/	
+		ag1002at-dtb {
+			description = "ag1002at-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag1002at-sdk.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		ag1002at-dpdk {
+			description = "ag1002at-dpdk";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag1002at-usdpaa.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		ag1002at-dtb-device {
+			description = "ag1002at-dtb";
+			data = /incbin/("arch/arm64/boot/dts/huachenlink/hc-ls1043a-ag1002at-sdk-device.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x90000000>;
+			hash@1 {
+				algo = "crc32";
+			};
+		};
+		
 	};
 
 	configurations {
@@ -170,70 +206,85 @@
 		default = "hcen101";
 
 		hcen101 {
-			description = "config for hcen104";
-			kernel = "kernel";
+			description = "config for hcen101";
+			kernel = "kernel";			 
 			fdt = "hcen101-dtb";
 		};	
-
+		
 		hcen104 {
 			description = "config for hcen104";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen104-dtb";
 		};	
 
 		hcen104-dpdk {
 			description = "config for hcen104";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen104-dpdk";
 		};
 
 		hcen1002 {
 			description = "config for hcen1002a";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen1002a-dtb";
 		};	
 
 		hcen1002-dpdk {
 			description = "config for hcen1002a";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen1002a-dpdk";
 		};		
 
 		hcen1002b {
 			description = "config for hcen1002b";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen1002b-dtb";
 		};	
 
 		hcen1002b-dpdk {
 			description = "config for hcen1002b";
-			kernel = "kernel";
+			kernel = "kernel";			 
 			fdt = "hcen1002b-dpdk";
 		};
-/*
-		hcen1004a {
-			description = "config for hcen1004a";
-			kernel = "kernel";
-			fdt = "hcen1004a-dtb";
+		
+		ag10025g {
+			description = "config for hcen10025g";
+			kernel = "kernel"; 
+			fdt = "ag10025ga-dtb";
 		};	
 
-		hcen1004a-dpdk {
-			description = "config for hcen1004a";
-			kernel = "kernel";
-			fdt = "hcen1004a-dpdk";
+		ag10025g-dpdk {
+			description = "config for hcen1002a";
+			kernel = "kernel";	 
+			fdt = "ag10025ga-dpdk";
+		};		
+
+		ag10025gb {
+			description = "config for hcen10025gb";
+			kernel = "kernel";	 
+			fdt = "ag10025gb-dtb";
+		};	
+
+		ag10025gb-dpdk {
+			description = "config for hcen10025gb";
+			kernel = "kernel";		 
+			fdt = "ag10025gb-dpdk";
 		};
-
-		hcen1004 {
-			description = "config for hcen1004";
-			kernel = "kernel";
-			fdt = "hcen1004-dtb";
+		ag1002at {
+			description = "config for ag1002at";
+			kernel = "kernel";			 
+			fdt = "ag1002at-dtb";
+		};	
+		ag1002atdevice {
+			description = "config for ag1002at-device";
+			kernel = "kernel"; 
+			fdt = "ag1002at-dtb-device";
 		};	
 
-		hcen1004-dpdk {
-			description = "config for hcen1004";
-			kernel = "kernel";
-			fdt = "hcen1004-dpdk";
-		};	
-*/		
+		ag1002at-dpdk {
+			description = "config for ag1002at dpdk";
+			kernel = "kernel";		 
+			fdt = "ag1002at-dpdk";
+		};
 	};
 };
